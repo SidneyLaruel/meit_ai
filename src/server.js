@@ -9,6 +9,7 @@ import https from 'https';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import cors from 'cors';
 
 // Get current directory
 const __filename = fileURLToPath(import.meta.url);
@@ -23,11 +24,32 @@ dotenv.config({ path: path.join(__dirname, '..', '.env') });
 // INITIALISATION
 const app = express();
 
-// SSL Certificate configuration
-const sslOptions = {
-  key: fs.readFileSync(path.join(__dirname, '..', 'certificates', 'server.key')),
-  cert: fs.readFileSync(path.join(__dirname, '..', 'certificates', 'server.cert'))
-};
+// CORS configuration
+app.use(cors({
+  origin: 'https://finca-meitai.com',
+  methods: ['GET', 'POST'],
+  credentials: false
+}));
+
+// Check if running on Render.com
+const isRender = process.env.RENDER === 'true';
+
+// SSL Certificate configuration - Only load certificates in development environment
+let sslOptions = {};
+let httpsServer;
+
+if (!isRender) {
+  try {
+    sslOptions = {
+      key: fs.readFileSync(path.join(__dirname, '..', 'certificates', 'server.key')),
+      cert: fs.readFileSync(path.join(__dirname, '..', 'certificates', 'server.cert'))
+    };
+    // Create HTTPS server for development
+    httpsServer = https.createServer(sslOptions, app);
+  } catch (error) {
+    console.warn('SSL certificates not found, running in HTTP mode only');
+  }
+}
 
 // Middleware de gestion de session
 app.use(
@@ -36,7 +58,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: true, // Enable secure cookies for HTTPS
+      secure: !isRender, // Only use secure cookies in development with HTTPS
       httpOnly: true, // Prevent XSS attacks
       sameSite: 'strict' // Protect against CSRF
     }
@@ -83,23 +105,27 @@ try {
 const PORT = process.env.PORT || 3000;
 const HTTPS_PORT = process.env.HTTPS_PORT || 3001;
 
-// Create HTTPS server
-const httpsServer = https.createServer(sslOptions, app);
+// Only set up HTTP to HTTPS redirection in development
+if (!isRender && httpsServer) {
+  // Add this before your routes
+  app.use((req, res, next) => {
+    if (!req.secure) {
+      // HTTP request, redirect to HTTPS
+      return res.redirect(`https://${req.hostname}:${HTTPS_PORT}${req.url}`);
+    }
+    next();
+  });
 
-// Add this before your routes
-app.use((req, res, next) => {
-  if (!req.secure) {
-    // HTTP request, redirect to HTTPS
-    return res.redirect(`https://${req.hostname}:${HTTPS_PORT}${req.url}`);
-  }
-  next();
-});
+  // Start HTTPS server in development
+  httpsServer.listen(HTTPS_PORT, () => {
+    console.log(`Serveur HTTPS démarré sur le port ${HTTPS_PORT}`);
+  });
+}
 
-// Start both HTTP and HTTPS servers
+// Start HTTP server
 app.listen(PORT, () => {
   console.log(`Serveur HTTP démarré sur le port ${PORT}`);
-});
-
-httpsServer.listen(HTTPS_PORT, () => {
-  console.log(`Serveur HTTPS démarré sur le port ${HTTPS_PORT}`);
+  if (isRender) {
+    console.log("Running on Render.com - using Render's built-in HTTPS");
+  }
 });
