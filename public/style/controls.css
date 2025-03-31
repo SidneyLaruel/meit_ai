@@ -1,0 +1,190 @@
+/*
+ * CONTROLS STYLES
+ * Styles for non-button UI controls, such as the language selector.
+ */
+
+ @import url('./variables.css'); /* Import variables */
+
+ .right-controls {
+   display: flex;
+   align-items: center;
+   gap: var(--space-sm);
+ }
+ 
+ .message.bot .right-controls {
+   display: none;
+ }
+ 
+ /* Language selector container */
+ .language-selector-container {
+   position: relative;
+ }
+
+ /* Hide Android dropdown by default */
+ .android-language-select {
+   display: none;
+ }
+
+ /* Native select styles */
+ #languageSelect {
+   width: 140px;
+   padding: var(--space-xs) var(--space-md);
+   background-color: var(--color-input);
+   border: 1px solid var(--color-border);
+   border-radius: 5px;
+   color: var(--color-text-primary);
+   font-family: var(--font-family);
+   font-size: 0.9rem;
+   cursor: pointer;
+   transition: all 0.3s;
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;
+   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.4-12.8z%22%2F%3E%3C%2Fsvg%3E");
+   background-repeat: no-repeat;
+   background-position: right 0.7em top 50%;
+   background-size: 0.65em auto;
+   padding-right: 2em;
+ }
+ 
+ #languageSelect:hover {
+   background-color: var(--color-border);
+   border-color: var(--color-text-secondary);
+ }
+
+ /* Android custom dropdown styles */
+ .android-language-button {
+   width: 140px;
+   padding: var(--space-xs) var(--space-md);
+   background-color: var(--color-input);
+   border: 1px solid var(--color-border);
+   border-radius: 5px;
+   color: var(--color-text-primary);
+   font-family: var(--font-family);
+   font-size: 0.9rem;
+   cursor: pointer;
+   transition: all 0.3s;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   position: relative;
+   text-align: left;
+ }
+
+ .android-language-button::after {
+   content: '';
+   width: 0.65em;
+   height: 0.65em;
+   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.4-12.8z%22%2F%3E%3C%2Fsvg%3E");
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: contain;
+   margin-left: var(--space-sm);
+ }
+
+ .android-language-button:hover {
+   background-color: var(--color-border);
+   border-color: var(--color-text-secondary);
+ }
+
+ .android-language-dropdown {
+   position: absolute;
+   top: 100%;
+   left: 0;
+   right: 0;
+   background-color: var(--color-input);
+   border: 1px solid var(--color-border);
+   border-radius: 5px;
+   margin-top: 4px;
+   padding: 4px 0;
+   list-style: none;
+   z-index: 1000;
+   display: none;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+   max-height: 0;
+   overflow: hidden;
+   transition: max-height 0.3s ease-out;
+ }
+
+ .android-language-dropdown.show {
+   display: block;
+   max-height: 300px;
+ }
+
+ .android-language-dropdown li {
+   padding: var(--space-sm) var(--space-md);
+   color: var(--color-text-primary);
+   cursor: pointer;
+   transition: background-color 0.2s;
+ }
+
+ .android-language-dropdown li:hover,
+ .android-language-dropdown li:focus {
+   background-color: var(--color-border);
+ }
+
+ .android-language-dropdown li[aria-selected="true"] {
+   background-color: var(--color-border);
+ }
+
+ #languageContainer {
+   display: inline-flex;
+   align-items: center;
+   gap: var(--space-md);
+ }
+
+ /* Language change notification */
+ .language-change-notification {
+   position: fixed;
+   bottom: 20px;
+   left: 50%;
+   transform: translateX(-50%);
+   background-color: rgba(0, 0, 0, 0.7);
+   color: white;
+   padding: 8px 16px;
+   border-radius: 20px;
+   font-size: 14px;
+   z-index: 9999;
+   opacity: 0;
+   transition: opacity 0.5s ease;
+   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+ }
+
+ /* Mobile styles */
+ @media (max-width: 768px) {
+   #languageSelect {
+     width: 120px;
+     font-size: 0.85rem;
+     padding: var(--space-xs) var(--space-sm);
+     padding-right: 1.8em;
+     background-size: 0.6em auto;
+     background-position: right 0.6em top 50%;
+   }
+
+   .android-language-button {
+     width: 120px;
+     font-size: 0.85rem;
+     padding: var(--space-xs) var(--space-sm);
+   }
+
+   .android-language-dropdown li {
+     padding: var(--space-sm) var(--space-sm);
+     font-size: 0.85rem;
+   }
+   
+   #languageContainer {
+     gap: var(--space-sm);
+   }
+ }
+
+ /* Show Android dropdown only on Android devices */
+ .android-device .android-language-select {
+   display: block;
+ }
+
+ .android-device #languageSelect {
+   display: none !important;
+   -webkit-appearance: none !important;
+   -moz-appearance: none !important;
+   appearance: none !important;
+ }

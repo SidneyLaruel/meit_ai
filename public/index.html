@@ -1,0 +1,325 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Meta Tags -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Meit Ai - Virtual assistant for Mei Tai Cacao Lodge">
+  <title>Meit Ai</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+
+  <!-- Preloaded Images -->
+  <link rel="preload" href="assets/favicon.png" as="image" fetchpriority="high">
+  <link rel="preload" href="assets/fleche.png" as="image" fetchpriority="low">
+  <link rel="preload" href="assets/audio.png" as="image" fetchpriority="high">
+  <link rel="preload" href="assets/check.png" as="image" fetchpriority="low">
+  <link rel="preload" href="assets/close.png" as="image" fetchpriority="low">
+  <link rel="preload" href="assets/bot.png" as="image" fetchpriority="low">
+  <link rel="preload" href="assets/vocal.png" as="image" fetchpriority="high">
+  <link rel="preload" href="assets/settings.png" as="image" fetchpriority="high">
+  <link rel="preload" href="assets/question.png" as="image" fetchpriority="high">
+
+  <!-- Preload Critical CSS -->
+  <link rel="preload" href="style/main.css" as="style">
+  <link rel="preload" href="style/variables.css" as="style">
+  <link rel="preload" href="style/base.css" as="style">
+  <link rel="preload" href="style/buttons.css" as="style">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style/main.css">
+
+  <!-- Preload critical assets -->
+  <link rel="preload" href="assets/favicon.png" as="image" type="image/png">
+  <link rel="preload" href="assets/loading.png" as="image" type="image/png">
+  <link rel="preload" href="assets/vocal.png" as="image" type="image/png">
+  
+  <!-- Preload critical JavaScript modules -->
+  <link rel="modulepreload" href="js/shared.js">
+  <link rel="modulepreload" href="js/language.js">
+  <link rel="modulepreload" href="js/application.js">
+  <link rel="modulepreload" href="js/audiomanager.js">
+  <link rel="modulepreload" href="js/chatinterface.js">
+  <link rel="modulepreload" href="js/settings.js">
+  <link rel="modulepreload" href="js/utility.js">
+  <link rel="modulepreload" href="js/modal.js">
+  <link rel="modulepreload" href="js/apicommunication.js">
+  
+  <!-- Load RecordRTC for Android devices -->
+  <script src="js/recordrtc-loader.js" defer></script>
+</head>
+<body>
+  <!-- Main Application Container -->
+  <div class="app-container">
+    <!-- Main Content Area -->
+    <main role="main">
+      <!-- Header with Language and Settings Controls -->
+      <header id="mainHeader" role="banner">
+        <nav id="languageContainer" role="navigation" aria-label="Language and settings">
+          <!-- Settings Button -->
+          <button
+            id="settingsButton"
+            class="icon-button"
+            aria-label="Open settings"
+            title="Settings"
+          >
+            <img src="assets/settings.png" alt="" aria-hidden="true">
+          </button>
+
+          <!-- Language Selector -->
+          <div class="language-selector-container">
+            <!-- Native select (for PC and iOS) -->
+            <select
+              id="languageSelect"
+              class="language-select"
+              onchange="changeLanguage()"
+              aria-label="Select language"
+            >
+              <option value="en">English</option>
+              <option value="fr">Français</option>
+              <option value="es">Español</option>
+            </select>
+
+            <!-- Custom dropdown (for Android) -->
+            <div id="androidLanguageSelect" class="android-language-select">
+              <button type="button" class="android-language-button" aria-haspopup="listbox" aria-expanded="false">
+                <span class="selected-language">English</span>
+              </button>
+              <ul class="android-language-dropdown" role="listbox">
+                <li role="option" data-value="en" aria-selected="true">English</li>
+                <li role="option" data-value="fr" aria-selected="false">Français</li>
+                <li role="option" data-value="es" aria-selected="false">Español</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Help Button -->
+          <button
+            id="helpButton"
+            class="icon-button round-button"
+            aria-label="Open help"
+            title="Help"
+          >
+            <img src="assets/question.png" alt="" aria-hidden="true">
+          </button>
+        </nav>
+      </header>
+
+      <!-- Chat Messages Container -->
+      <section
+        class="chat-container"
+        aria-label="Chat messages"
+      >
+        <div
+          id="messages"
+          class="messages"
+          role="log"
+          aria-live="polite"
+        ></div>
+        <div id="scrollAnchor" aria-hidden="true"></div>
+      </section>
+    </main>
+
+    <!-- Chat Input Footer -->
+    <footer role="contentinfo">
+      <form
+        id="chatForm"
+        class="input-area"
+        role="form"
+        aria-label="Chat message form"
+      >
+        <div class="input-with-icons">
+          <textarea
+            id="userInput"
+            class="chat-input"
+            rows="1"
+            required
+            autocomplete="off"
+            aria-label="Type your message"
+            placeholder="Type your message..."
+          ></textarea>
+
+          <button
+            type="submit"
+            id="sendButton"
+            class="icon-button round-button"
+            aria-label="Send message"
+            title="Send"
+            style="display: none;"
+          >
+            <img src="assets/fleche.png" alt="" aria-hidden="true">
+          </button>
+
+          <button
+            type="button"
+            id="voiceInput"
+            class="icon-button round-button"
+            aria-label="Start voice input"
+            title="Voice input"
+            style="-webkit-touch-callout: none; -webkit-user-select: none; user-select: none; touch-action: manipulation;"
+          >
+            <img 
+              src="assets/audio.png" 
+              alt="" 
+              aria-hidden="true"
+              style="-webkit-touch-callout: none; -webkit-user-select: none; user-select: none; -webkit-user-drag: none; pointer-events: none;"
+              draggable="false"
+            >
+          </button>
+          <div class="recording-ui" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: #444; border-radius: 30px; display: none; align-items: center; padding: 8px; gap: 8px; z-index: 100;">
+            <button class="round-button cancel-button"><img src="assets/close.png" alt="Cancel"></button>
+            <div class="waveform-container" style="flex: 1; height: 40px; position: relative; overflow: hidden;">
+              <canvas class="waveform-canvas" style="width: 100%; height: 100%; display: block;"></canvas>
+            </div>
+            <div class="right-controls">
+              <span class="duration-display">0:00</span>
+              <button class="round-button confirm-button"><img src="assets/check.png" alt="Confirm"></button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div
+        id="disclaimer"
+        class="disclaimer"
+        role="note"
+        aria-live="polite"
+      ></div>
+    </footer>
+  </div>
+
+<!-- Modal popup for help -->
+<div id="helpModal" class="modal help-modal" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
+  <div class="modal-content help-modal-content">
+    <div class="modal-header help-modal-header">
+      <img
+        src="assets/bar.png"
+        alt=""
+        class="modal-drag-handle"
+        aria-hidden="true"
+      >
+      <h2 id="modalTitle"></h2>
+      <span
+        class="close"
+        role="button"
+        aria-label="Close"
+      >×</span>
+    </div>
+
+    <div class="modal-body help-modal-body">
+      <div id="helpText">
+        <!-- Help text will be inserted here dynamically -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Settings Modal -->
+<div id="settingsModal" class="modal settings-modal" role="dialog" aria-labelledby="settingsTitle" aria-modal="true">
+  <div class="modal-content settings-modal-content">
+    <div class="modal-header settings-modal-header">
+      <img
+        src="assets/bar.png"
+        alt=""
+        class="modal-drag-handle"
+        aria-hidden="true"
+      >
+      <h2 id="settingsTitle">Settings</h2>
+      <span
+        class="close"
+        role="button"
+        aria-label="Close settings"
+      >×</span>
+    </div>
+    <div class="modal-body settings-modal-body">
+      <div class="settings-container">
+        <aside class="settings-sidebar" role="complementary">
+          <h3 id="settingsSection">General</h3>
+        </aside>
+        <div class="settings-content" role="group" aria-labelledby="settingsSection">
+          <div class="settings-row" role="group" aria-labelledby="alwaysReadOutLoudLabel">
+            <div class="setting-info">
+              <label id="alwaysReadOutLoudLabel" for="alwaysReadOutLoud" class="setting-label">Always read out loud</label>
+              <p class="setting-explanation" id="alwaysReadOutLoudDesc" data-setting="alwaysReadOutLoud">
+                Automatically read responses from Meit Ai aloud without needing to tap the button.
+              </p>
+            </div>
+            <label class="toggle-switch">
+              <input
+                type="checkbox"
+                id="alwaysReadOutLoud"
+                aria-describedby="alwaysReadOutLoudDesc"
+              >
+              <span class="toggle-slider" role="presentation"></span>
+            </label>
+          </div>
+          <div class="settings-row" role="group" aria-labelledby="autoTranscribeVoiceLabel">
+            <div class="setting-info">
+              <label id="autoTranscribeVoiceLabel" for="autoTranscribeVoice" class="setting-label">Automatically send voice messages</label>
+              <p class="setting-explanation" id="autoTranscribeVoiceDesc" data-setting="autoTranscribeVoice">
+                When you send a voice note, it is automatically transcribed and sent to Meit Ai for a response, without appearing in the typing area.
+              </p>
+            </div>
+            <label class="toggle-switch">
+              <input
+                type="checkbox"
+                id="autoTranscribeVoice"
+                aria-describedby="autoTranscribeVoiceDesc"
+              >
+              <span class="toggle-slider" role="presentation"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Template pour les messages du bot -->
+  <template id="botMessageTemplate">
+    <article
+      class="message bot"
+      role="listitem"
+    >
+      <img
+        src="assets/favicon.png"
+        alt=""
+        class="message-logo"
+        aria-hidden="true"
+      >
+      <span class="message-content"></span>
+      <button
+        class="vocal-button"
+        type="button"
+        aria-label="Read message aloud"
+        title="Read aloud"
+        style="-webkit-touch-callout: none; -webkit-user-select: none; user-select: none; min-width: 44px; min-height: 44px; padding: 8px; touch-action: manipulation;"
+      >
+        <img
+          src="assets/vocal.png"
+          alt=""
+          class="vocal-icon"
+          aria-hidden="true"
+          style="-webkit-touch-callout: none; -webkit-user-select: none; user-select: none; -webkit-user-drag: none; pointer-events: none;"
+          draggable="false"
+        >
+      </button>
+    </article>
+  </template>
+
+  <div class="error-message"></div>
+
+  <!-- Scripts -->
+  <script type="module" src="js/shared.js"></script>
+  <script type="module" src="js/language.js"></script>
+  <script type="module" src="js/application.js"></script>
+  <script type="module" src="js/chatinterface.js"></script>
+  <script type="module" src="js/audiomanager.js"></script>
+  <script type="module" src="js/modal.js"></script>
+  <script type="module" src="js/apicommunication.js"></script>
+  <script type="module" src="js/settings.js"></script>
+  <script type="module" src="js/utility.js"></script>
+
+</body>
+</html>

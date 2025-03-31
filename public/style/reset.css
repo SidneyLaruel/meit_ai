@@ -1,0 +1,47 @@
+/*!
+ * RESET STYLES
+ * Provides global resets for consistent styling.
+ * 
+ * A "reset" in CSS removes default browser styling differences. 
+ * This ensures the app looks the same across different browsers and devices.
+ * Think of it as creating a clean canvas before starting to paint.
+ */
+
+ @import url('./variables.css'); /* Import the variables defined in variables.css so we can use them in this file */
+
+ /* 
+  * This rule applies to ALL elements on the page (that's what the * means)
+  * as well as their "before" and "after" pseudo-elements.
+  */
+ *, *::before, *::after {
+   box-sizing: border-box; /* Makes sizing elements more predictable - width includes padding and border */
+   margin: 0; /* Removes all margins (space outside elements) */
+   padding: 0; /* Removes all padding (space inside elements) */
+ }
+ 
+ /* 
+  * Remove the default blue outline that appears when elements are focused
+  * We'll add our own focus styles elsewhere to maintain accessibility
+  */
+ *:focus {
+   outline: none;
+ }
+ 
+ /* 
+  * High contrast mode support for accessibility
+  * This section adds special styling when users have high contrast mode enabled
+  * (Often used by people with visual impairments)
+  */
+ @media (forced-colors: active) {
+   /* Add borders to these elements to make them visible in high contrast mode */
+   button.round-button,
+   .toggle-switch,
+   .modal-content {
+     border: 1px solid ButtonText; /* "ButtonText" is a special system color that adjusts to high contrast mode */
+   }
+ 
+   /* Make sure the toggle switch changes color when activated in high contrast mode */
+   .toggle-switch input:checked + .toggle-slider {
+     background-color: Highlight; /* "Highlight" is another special system color for high contrast mode */
+   }
+ }

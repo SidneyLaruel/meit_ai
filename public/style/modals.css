@@ -1,0 +1,213 @@
+/*!
+ * MODALS STYLES
+ * Styles for modal dialogs, including general modal structure and settings modal.
+ * 
+ * This file controls how popup windows (called "modals") look and behave.
+ * Modals include the help window and settings window that appear over the main app.
+ */
+
+ @import url('./variables.css'); /* Import the variables we defined earlier so we can use them here */
+
+ /* 
+  * The modal backdrop (the dark semi-transparent layer behind popups)
+  * This darkens the rest of the app when a popup appears
+  */
+ .modal {
+   position: fixed; /* Stays in place even when scrolling */
+   z-index: var(--z-index-modal); /* Ensures it appears above other content */
+   inset: 0; /* Covers the entire screen (shorthand for top, right, bottom, left) */
+   display: none; /* Hidden by default until activated */
+   background-color: rgba(0, 0, 0, 0); /* Starts completely transparent */
+   transition: background-color 0.01s ease-out; /* Smooth fade-in effect */
+   will-change: background-color; /* Optimizes performance for this changing property */
+ }
+ 
+ /* 
+  * The modal backdrop when it's visible
+  * This is the darkened background that appears when a modal is open
+  */
+ .modal.show {
+   background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent overlay (70% opacity) */
+ }
+ 
+ /* 
+  * The actual modal window/popup that contains content
+  * This is the box that contains the help or settings information
+  */
+ .modal-content {
+   position: fixed; /* Stays in place even when scrolling */
+   top: 50%; /* Positioned halfway down the screen */
+   left: 50%; /* Positioned halfway across the screen */
+   z-index: var(--z-index-modal-content); /* Ensures it appears above the backdrop */
+   display: flex; /* Uses flexible layout for header and body */
+   flex-direction: column; /* Stacks elements vertically */
+   width: 680px; /* Standard width for desktop/larger screens */
+   height: 600px; /* Standard height for desktop/larger screens */
+   max-height: 90vh; /* Never taller than 90% of the viewport height */
+   overflow: hidden; /* Hides content that doesn't fit */
+   background-color: var(--color-surface); /* Dark gray background */
+   border-radius: var(--border-radius-sm); /* Rounded corners */
+   transform: translate(-50%, -50%); /* Centers the box perfectly */
+   transition: transform 0.01s ease-out; /* Smooth animation when appearing */
+   will-change: transform; /* Optimizes performance for this changing property */
+ }
+ 
+ /* 
+  * The header/title bar of the modal
+  * This contains the title and close button at the top of the popup
+  */
+ .modal-header {
+   position: sticky; /* Stays at the top even when scrolling */
+   top: 0; /* Sticks to the top */
+   z-index: 10; /* Ensures it appears above scrolling content */
+   display: flex; /* Uses flexible layout for positioning */
+   justify-content: space-between; /* Puts title on left, close button on right */
+   align-items: center; /* Centers items vertically */
+   min-height: 80px; /* Minimum height to ensure it's easily tappable */
+   padding: var(--space-lg) var(--space-xl); /* Adds space inside the header */
+   background-color: var(--color-surface); /* Same color as the modal background */
+   border-bottom: 1px solid var(--color-input); /* Thin line separating header from body */
+   border-radius: var(--border-radius-sm) var(--border-radius-sm) 0 0; /* Rounds top corners only */
+   margin-bottom: 0; /* No space below the header */
+ }
+ 
+ /* 
+  * The title text in the modal header
+  * This is the text that tells you what the popup is about
+  */
+ .modal-header h2 {
+   margin: 0; /* Removes default spacing */
+   color: var(--color-text-primary); /* White text */
+   font-family: var(--font-family); /* Uses the standard font */
+   font-size: 1.5rem; /* Larger text size for the title */
+ }
+ 
+ /* 
+  * The drag handle for mobile modals
+  * This is the little bar users can grab to drag the modal down (to close it)
+  */
+ .modal-drag-handle {
+   width: 60px; /* Width of the handle bar */
+   height: auto; /* Adjusts height automatically */
+   margin-bottom: var(--space-md); /* Space below the handle */
+   opacity: 0.7; /* Slightly transparent */
+   display: none; /* Hidden by default (only shown on mobile) */
+ }
+ 
+ /* 
+  * The main content area of the modal
+  * This contains the actual information or controls
+  */
+ .modal-body {
+   flex: 1; /* Takes up all available space */
+   padding: var(--space-xl); /* Plenty of space around the content */
+   overflow-y: auto; /* Allows scrolling if content is too tall */
+   text-align: justify; /* Evenly spaces text for readability */
+   hyphens: none; /* Prevent hyphenation of words */
+   word-wrap: break-word; /* Ensures words break and wrap to next line */
+   overflow-wrap: break-word; /* Modern property for word wrapping */
+   word-break: normal; /* Breaks only at allowed break points */
+ }
+ 
+ /* 
+  * Custom scrollbar track styling for the modal body
+  * This adds margin to the scrollbar track (the area the thumb moves in)
+  */
+ .modal-body::-webkit-scrollbar-track {
+   margin: var(--space-xl) 0; /* Adds space above and below the scrollbar */
+ }
+ 
+ /* 
+  * The close (X) button in the modal header
+  * This is the button that closes the popup
+  */
+ .close {
+   color: var(--color-text-secondary); /* Light gray color */
+   font-family: var(--font-family); /* Uses the standard font */
+   font-size: 28px; /* Large size for easy tapping */
+   font-weight: bold; /* Makes it stand out */
+   line-height: 1; /* Tightens line height for better positioning */
+   cursor: pointer; /* Shows a pointer cursor on hover (the little hand) */
+ }
+ 
+ /* 
+  * Hover and focus states for the close button
+  * This changes the close button appearance when hovered or focused
+  */
+ .close:hover, .close:focus {
+   color: var(--color-text-primary); /* Changes to white when hovered */
+   text-decoration: none; /* Removes any underline that might appear */
+ }
+
+ /* 
+  * Mobile styles for smaller screens (phones and small tablets)
+  * These completely change how modals work on mobile devices
+  */
+ @media (max-width: 600px) {
+     /* Shows the drag handle on mobile */
+     .modal-drag-handle {
+         display: block; /* Makes the drag handle visible on mobile */
+     }
+ 
+     /* Remove dark background on mobile */
+     .modal.show {
+         background-color: transparent;
+     }
+ 
+     /* Repositions the modal to slide up from bottom on mobile */
+     .modal-content {
+         position: fixed; /* Stays in place even when scrolling */
+         top: 100%; /* Positioned just below the viewport */
+         left: 0; /* Aligned to the left edge */
+         right: 0; /* Aligned to the right edge */
+         bottom: auto; /* Not aligned to bottom */
+         width: 100%; /* Takes up full screen width */
+         height: 80vh; /* Takes up 80% of the viewport height */
+         max-height: 80vh; /* Never taller than 80% of the viewport height */
+         transform: translateY(0); /* Initial position (off-screen) */
+         border-radius: var(--border-radius-sm) var(--border-radius-sm) 0 0; /* Rounds top corners only */
+         transition: transform 0.01s ease-out; /* Faster animation */
+     }
+ 
+     /* Slides the modal up into view when shown */
+     .modal.show .modal-content {
+         transform: translateY(-80vh); /* Slides up to show the modal */
+     }
+ 
+     /* Adjusts the header styling for mobile */
+     .modal-header {
+         position: relative; /* Enables absolute positioning of children */
+         border-bottom: 2px solid var(--color-input); /* Thicker dividing line on mobile */
+     }
+ 
+     /* Centers and adjusts the title text on mobile */
+     .modal-header h2 {
+         flex: 1; /* Takes up all available space */
+         text-align: center; /* Centers the title */
+         font-size: 1.2rem; /* Slightly smaller text on mobile */
+     }
+ 
+     /* Adjusts the content area for mobile scrolling */
+     .modal-body {
+         max-height: calc(80vh - 50px); /* Ensures content doesn't overflow the modal */
+         padding: var(--space-xl) var(--space-xl) 40px var(--space-xl); /* Extra padding at bottom */
+         background-color: var(--color-surface); /* Same color as the modal background */
+         overflow-y: auto; /* Allows scrolling if content is too tall */
+         overscroll-behavior-y: contain; /* Prevents scrolling the page behind the modal */
+         -webkit-overflow-scrolling: touch; /* Enables smooth scrolling on iOS */
+         word-wrap: break-word; /* Ensures words break and wrap to next line */
+         overflow-wrap: break-word; /* Modern property for word wrapping */
+         word-break: normal; /* Breaks only at allowed break points */
+         hyphens: none; /* Prevent hyphenation of words */
+     }
+ 
+     /* Repositions the close button for mobile */
+     .close {
+         position: absolute; /* Positioned relative to the header */
+         top: var(--space-lg); /* Distance from the top */
+         right: var(--space-xl); /* Distance from the right */
+         padding: var(--space-sm); /* Extra padding for easier tapping */
+         color: var(--color-text-primary); /* White color for better visibility */
+         font-size: 24px; /* Slightly smaller on mobile */
+     }
+ }

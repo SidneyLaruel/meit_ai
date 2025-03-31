@@ -1,0 +1,31 @@
+{
+  "name": "chatbot-finca-mei-tai",
+  "version": "1.0.0",
+  "description": "Chatbot vocal pour Finca Mei Tai",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "@google-cloud/text-to-speech": "^5.6.0",
+    "body-parser": "^1.20.1",
+    "chokidar": "^4.0.3",
+    "docx": "^9.2.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "form-data": "^4.0.1",
+    "formdata-polyfill": "^4.0.10",
+    "franc": "^6.2.0",
+    "franc-min": "^6.2.0",
+    "ip": "^2.0.1",
+    "mammoth": "^1.9.0",
+    "microsoft-cognitiveservices-speech-sdk": "^1.42.0",
+    "multer": "^1.4.5-lts.1",
+    "node-fetch": "^3.3.0",
+    "openai": "^4.76.3",
+    "undici": "^7.2.0",
+    "winston": "^3.17.0"
+  }
+}

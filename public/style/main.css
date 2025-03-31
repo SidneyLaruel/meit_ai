@@ -1,0 +1,35 @@
+/*!
+ * CHATBOT STYLES
+ * Main stylesheet for the chatbot application.  Imports all modular styles.
+ */
+
+/* Critical styles first */
+@import url('./variables.css');
+@import url('./reset.css');
+@import url('./base.css');
+@import url('./buttons.css');
+@import url('./layout.css');
+
+/* Non-critical styles */
+@import url('./inputArea.css');
+@import url('./messages.css');
+@import url('./controls.css');
+@import url('./modals.css');
+@import url('./settingsModal.css');
+@import url('./helpModal.css');
+@import url('./recording.css');
+@import url('./voice.css');
+@import url('./animations.css');
+@import url('./utilities.css');
+@import url('./print.css');
+
+/* Prevent FOUC */
+.icon-button {
+  opacity: 0;
+  animation: fadeIn 0.1s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 0.7; }
+}

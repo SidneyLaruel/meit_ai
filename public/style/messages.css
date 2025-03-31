@@ -1,0 +1,249 @@
+/*!
+ * MESSAGES STYLES
+ * Styles for individual messages and the overall message list.
+ *
+ * This file controls how the chat messages look and are positioned.
+ * It handles both user messages and bot messages, as well as the special welcome message.
+ */
+
+ @import url('./variables.css'); /* Import the variables we defined earlier so we can use them here */
+
+ /* 
+  * Base styling for all message types (both user and bot messages)
+  * This sets up the foundation that specific message types will build upon
+  */
+ .message {
+   position: relative; /* Allows positioning elements inside the message */
+   display: flex; /* Uses flexible layout for positioning the logo and text */
+   align-items: flex-start; /* Aligns items to the top of the message */
+ }
+ 
+ /* 
+  * The chatbot's logo/avatar that appears next to its messages
+  * This is the small circular image beside the bot's responses
+  */
+ .message-logo {
+   width: var(--logo-size); /* Uses the logo size defined in variables.css */
+   height: var(--logo-size); /* Makes the logo a perfect circle */
+   min-width: var(--logo-size); /* Prevents the logo from shrinking */
+   min-height: var(--logo-size); /* Prevents the logo from shrinking */
+   margin: 15px 0 0 2px; /* Adds space around the logo (top, right, bottom, left) */
+   align-self: flex-start; /* Keeps the logo at the top of the message */
+   border-radius: 50%; /* Makes the image circular */
+   object-fit: cover; /* Makes sure the image fills the circle nicely */
+   overflow: hidden; /* Hides any parts of the image outside the circle */
+   will-change: opacity; /* Tells the browser this element might fade in/out */
+   contain: strict; /* Performance optimization to reduce repaints */
+   content-visibility: auto; /* Performance optimization for offscreen content */
+   /* The following lines prevent the image from flickering during animations */
+   transform: translateZ(0);
+   backface-visibility: hidden;
+   -webkit-font-smoothing: subpixel-antialiased;
+ }
+ 
+ /* 
+  * User message specific styling
+  * User messages appear on the right side of the chat
+  */
+ .message.user {
+   justify-content: flex-end; /* Positions the message on the right side */
+ }
+ 
+ /* 
+  * The text bubble for user messages
+  * This creates the gray bubble that contains the user's text
+  */
+ .message.user span {
+   display: inline-block; /* Allows setting width and height properties */
+   max-width: 70%; /* Prevents messages from being too wide */
+   padding: var(--space-md) var(--space-lg); /* Adds space inside the bubble (vertical, horizontal) */
+   background: var(--color-input); /* Sets the background color to gray */
+   border-radius: var(--border-radius); /* Rounds the corners to create the bubble shape */
+   word-wrap: break-word; /* Allows long words to break and wrap to the next line */
+ }
+ 
+ /* 
+  * Bot message specific styling
+  * Bot messages appear on the left side of the chat
+  */
+ .message.bot {
+   position: relative; /* Allows positioning elements inside the message */
+   justify-content: flex-start; /* Positions the message on the left side */
+   align-items: flex-start; /* Aligns items to the top of the message */
+   padding-bottom: 55px; /* Adds space below for audio controls */
+ }
+ 
+ /* 
+  * The text bubble for bot messages
+  * This styles the text area that contains the bot's response
+  */
+ .message.bot span {
+   display: inline-block; /* Allows setting width and height properties */
+   max-width: 100%; /* Allows the message to use full width if needed */
+   margin-bottom: var(--space-sm); /* Adds a small space below the text */
+   padding: var(--space-md) var(--space-lg); /* Adds space inside the bubble (vertical, horizontal) */
+   background: transparent; /* Bot messages don't have a background color */
+   font-family: var(--font-family); /* Uses the font defined in variables.css */
+   font-size: var(--font-size-base); /* Uses the standard font size */
+   line-height: 1.6; /* Sets line spacing for readability */
+   text-align: left; /* Aligns text to the left */
+   white-space: pre-wrap; /* Preserves whitespace and line breaks while allowing wrapping */
+   word-wrap: break-word; /* Allows long words to break and wrap to the next line */
+ }
+ 
+ /* 
+  * Special styling for the welcome message logo
+  * This ensures the logo in the welcome message has the right size
+  */
+ .welcome-message .message-logo {
+   width: var(--logo-size); /* Uses the logo size defined in variables.css */
+   height: var(--logo-size); /* Makes the logo a perfect circle */
+   min-width: var(--logo-size); /* Prevents the logo from shrinking */
+   min-height: var(--logo-size); /* Prevents the logo from shrinking */
+ }
+ 
+ /* 
+  * The text bubble for the welcome message
+  * This styles the special first message from the bot
+  */
+ .welcome-message span {
+   display: inline-block; /* Allows setting width and height properties */
+   max-width: 90%; /* Makes the welcome message wider than regular messages */
+   padding: var(--space-lg) var(--space-xl); /* Adds extra padding for prominence */
+   background: transparent; /* No background color */
+   line-height: 1; /* Tighter line spacing for the welcome message */
+ }
+ 
+ /* 
+  * Paragraphs within the welcome message
+  * This controls the spacing between different parts of the welcome message
+  */
+ .welcome-message span p {
+   margin: var(--space-xs) 0; /* Adds small spaces above and below paragraphs */
+   line-height: 1; /* Tighter line spacing for the welcome message */
+ }
+ 
+ /* 
+  * Paragraphs without bold text get extra space below
+  * This adds more separation between regular text and option sections
+  */
+ .welcome-message span p:not(:has(strong)) {
+   margin-bottom: 15px; /* Adds extra space below paragraphs without bold text */
+ }
+ 
+ /* 
+  * Bold text in welcome message paragraphs
+  * This styles the topic options/buttons in the welcome message
+  */
+ .welcome-message span p strong {
+   display: block; /* Makes each bold item display as a block */
+   margin: -4px 0; /* Slight negative margin to tighten spacing */
+   padding: 0; /* Removes any padding */
+   line-height: 0.7; /* Very tight line spacing for compact buttons */
+ }
+ 
+ /* 
+  * All bold text in welcome message
+  * This styles any bold text in the welcome message
+  */
+ .welcome-message strong {
+   color: var(--color-text-primary); /* Uses the primary text color for emphasis */
+   font-weight: 600; /* Makes the text semi-bold rather than fully bold */
+ }
+ 
+ /* 
+  * Small text in welcome message
+  * This styles the smaller, less important text in the welcome message
+  */
+ .welcome-message span small {
+   display: block; /* Makes small text display as a block */
+   margin-top: var(--space-sm); /* Adds space above small text */
+   line-height: 1.2; /* Slightly more line spacing for readability */
+ }
+ 
+ /* 
+  * Italic text within small text in welcome message
+  * This is for the disclaimer text in the welcome message
+  */
+ .welcome-message span small em {
+   line-height: 1.2; /* Maintains the same line spacing as regular small text */
+ }
+ 
+ /* 
+  * The second small-break in the welcome message
+  * This adds extra separation between sections in the welcome message
+  */
+ .welcome-message span small-break:nth-of-type(2) {
+   display: block; /* Makes it display as a block for full width */
+   height: auto; /* Allows it to adjust height based on content */
+   margin: var(--space-md) 0; /* Adds medium space above and below */
+ }
+ 
+ /* 
+  * Custom element for adding small breaks in text
+  * This creates visual separation without using too much space
+  */
+ small-break {
+   display: inline-block; /* Allows it to flow with text */
+   height: 2px; /* Very thin height */
+   line-height: 1.5; /* Adds some vertical space */
+ }
+ 
+ /* 
+  * The disclaimer text at the bottom of the chat
+  * This is the small text reminding users about chatbot limitations
+  */
+ .disclaimer {
+   width: 100%; /* Takes up full width */
+   max-width: 600px; /* But limits to a reasonable reading width */
+   margin: var(--space-md) 0; /* Adds space above and below */
+   color: var(--color-text-muted); /* Uses gray/muted color for less prominence */
+   font-family: var(--font-family); /* Uses the standard font */
+   font-size: 0.75rem; /* Small text size */
+   font-style: italic; /* Italicized for secondary information */
+   text-align: center; /* Centered for emphasis */
+ }
+
+ /* 
+  * This styles bot messages that come immediately after user messages
+  * It adds extra space and scroll behavior for better visibility
+  */
+ .message.user + .message.bot {
+   scroll-margin-top: var(--space-xl); /* When scrolling to this element, keeps space at top */
+   margin-top: 20px; /* Adds extra space between user question and bot response */
+ }
+ 
+ /* 
+  * This styles user messages that are followed by bot responses
+  * It ensures the user question remains visible when scrolling
+  */
+ .message.user:has(+ .message.bot) {
+   position: relative; /* Enables z-index */
+   z-index: 2; /* Higher z-index makes it visually stand out */
+   padding-bottom: 10px; /* Adds space below */
+   scroll-margin-top: 30px; /* Adds extra space when scrolling to this element */
+ }
+
+ /* 
+  * Mobile styles for smaller screens (phones and small tablets)
+  * These adjust the layout to work better on small screens
+  */
+ @media (max-width: 600px) {
+     /* Adjusts the logo spacing on mobile */
+     .message-logo {
+         margin-right: var(--space-xs); /* Reduces right margin to save space */
+     }
+     
+     /* Makes messages take up more width on mobile */
+     .message.bot span,
+     .message.user span {
+         max-width: 95%; /* Almost full width on small screens */
+         padding: var(--space-md); /* Reduces padding to save space */
+     }
+ 
+     /* Adjusts welcome message for mobile */
+     .welcome-message span {
+         max-width: 95%; /* Almost full width on small screens */
+         padding: var(--space-lg) var(--space-md); /* Adjusts padding to save space */
+     }
+ }

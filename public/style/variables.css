@@ -1,0 +1,93 @@
+/*!
+ * VARIABLES & RESET
+ * Defines CSS variables for the chatbot application.
+ * 
+ * CSS variables are like design settings that can be changed in one place
+ * and automatically update everywhere they're used in the app.
+ * Think of them as a central control panel for colors, sizes, and spacing.
+ */
+
+ :root {
+    /* Color Scheme - Core
+     * These are the main colors used throughout the app.
+     */
+    --color-primary: #4CD964;    /* Bright green - The main brand color used for buttons and accents */
+    --color-background: #1C1C1E; /* Very dark gray - The main background color of the app */
+    --color-surface: #2a2a2e;    /* Dark gray - Used for cards, input areas, and interactive elements */
+    --color-input: #444;         /* Medium gray - Used for input fields and selectable items */
+    --color-border: #555;        /* Light gray - Used for borders and dividers between elements */
+  
+    /* Color Scheme - Text
+     * These define all the text colors used in the app.
+     */
+    --color-text-primary: #fff;  /* White - The main text color, used for most content */
+    --color-text-secondary: #aaa; /* Light gray - Used for less important text */
+    --color-text-muted: #888;    /* Medium gray - Used for placeholder text and disabled items */
+    --color-text-dark: #333;     /* Dark gray - Used for text on light backgrounds */
+    --color-text-black: #000;    /* Black - Used for high-contrast text when needed */
+    --color-text-white: #fff;    /* White - Used for text on dark backgrounds */
+  
+    /* Color Scheme - States
+     * These colors indicate different states or types of notifications.
+     */
+    --color-alert: #ff5722;      /* Orange-red - Used for errors and critical alerts */
+    --color-warning: #FFD700;    /* Gold - Used for warnings and important notices */
+    --color-success: #4CD964;    /* Green - Used for success messages and confirmations */
+  
+    /* Color Scheme - UI Elements
+     * These are used for specific UI elements throughout the app.
+     */
+    --color-scrollbar-thumb: #888; /* Medium gray - The draggable part of scrollbars */
+    --color-scrollbar-track: #2a2a2e; /* Dark gray - The background track of scrollbars */
+    --color-background-light: #ccc; /* Light gray - Used for lighter background areas */
+    --color-background-lighter: #e0e0e0; /* Very light gray - Used for the lightest backgrounds */
+    --color-background-black: #000; /* Black - Used for maximum contrast backgrounds */
+  
+    /* Spacing Scale
+     * These define the standard spacing sizes throughout the app.
+     * Consistent spacing helps maintain a clean, organized look.
+     */
+    --space-xxs: 3px;  /* Tiny spacing - Used for very tight areas */
+    --space-xs: 5px;   /* Extra small spacing - Used for compact elements */
+    --space-sm: 8px;   /* Small spacing - Used for closer elements */
+    --space-md: 10px;  /* Medium spacing - The standard spacing between elements */
+    --space-lg: 15px;  /* Large spacing - Used for more separated elements */
+    --space-xl: 20px;  /* Extra large spacing - Used for distinguishing sections */
+    --space-xxl: 30px; /* Huge spacing - Used for major section separations */
+  
+    /* Component Sizing
+     * These define standard sizes for UI components like buttons and inputs.
+     */
+    --button-size-sm: 25px;  /* Small button size - Used for compact buttons */
+    --button-size: 35px;     /* Standard button size - Used for most buttons */
+    --button-size-lg: 40px;  /* Large button size - Used for prominent buttons */
+    --logo-size: 32px;       /* Size of the logo in the chat messages */
+    --input-height: 40px;    /* Height of the input field where users type */
+  
+    /* Layout
+     * These define aspects of the app's overall layout structure.
+     */
+    --border-radius-sm: 20px; /* Small rounded corners - Used for smaller elements */
+    --border-radius: 30px;    /* Standard rounded corners - Used for most curved elements */
+    --max-content-width: 700px; /* Maximum width of the content area - Keeps text comfortable to read */
+  
+    /* Typography
+     * These control all aspects of text: sizes, spacing, and fonts.
+     */
+    --font-size-xs: 0.75rem;  /* Extra small text - Used for fine print and labels */
+    --font-size-sm: 0.9rem;   /* Small text - Used for secondary information */
+    --font-size-base: 16px;   /* Base text size - The standard size for most text */
+    --font-size-lg: 1.2rem;   /* Large text - Used for important content */
+    --font-size-xl: 1.5rem;   /* Extra large text - Used for titles and headers */
+    --line-height-tight: 1.2; /* Tight line spacing - Used for headings */
+    --line-height-base: 1.6;  /* Standard line spacing - Used for body text */
+    --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; /* Font stack - Uses the user's system fonts for best performance */
+  
+    /* Z-index Layers
+     * These control which elements appear on top of others.
+     * Higher numbers appear in front of lower numbers.
+     */
+    --z-index-modal: 1000;       /* Makes popups appear above regular content */
+    --z-index-modal-content: 1001; /* Makes the content of popups appear above the popup background */
+    --z-index-tooltip: 1005;     /* Makes tooltips appear above everything else */
+  }

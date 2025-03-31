@@ -1,0 +1,70 @@
+/*!
+* LAYOUT STYLES
+* Styles for the main layout structure of the chatbot application.
+* 
+* The layout file defines how the main sections of the app are positioned.
+* Think of it as the blueprint for the app's structure.
+*/
+
+@import url('./variables.css'); /* Import the variables we defined earlier so we can use them here */
+
+/* 
+ * The app-container is the main wrapper for the entire application.
+ * It's like the outer box that holds everything else.
+ */
+.app-container {
+  display: flex; /* Uses flexible layout so content can expand properly */
+  flex-direction: column; /* Stacks children vertically (top to bottom) */
+  height: 100%; /* Takes up the full height of the screen */
+  width: 100%; /* Takes up the full width of the screen */
+  overflow-y: auto; /* Allows scrolling if content is too tall */
+  -webkit-overflow-scrolling: touch; /* Makes scrolling smooth on iOS devices */
+}
+
+/* 
+ * The main element contains the primary content of the app (the chat).
+ * It's like the main room in a house.
+ */
+main {
+  flex: 1; /* Takes up all available space between header and footer */
+  padding: var(--space-md); /* Adds some space around the content */
+  overflow-y: auto; /* Allows scrolling if the chat gets too long */
+}
+
+/* 
+ * The chat-container holds all the chat messages.
+ * It's like a conversation bubble that keeps everything organized.
+ */
+.chat-container {
+  max-width: var(--max-content-width); /* Limits how wide the chat can get for readability */
+  margin: 0 auto; /* Centers the chat horizontally on the screen */
+  display: flex; /* Uses flexible layout for the messages */
+  flex-direction: column; /* Stacks messages vertically (top to bottom) */
+  scroll-behavior: smooth; /* Makes scrolling smooth when new messages appear */
+  overflow-anchor: none; /* Disables the browser's automatic scrolling so we can control it */
+}
+
+/* 
+ * The messages area contains all the individual chat messages.
+ * Think of it as the conversation transcript.
+ */
+.messages {
+  display: flex; /* Uses flexible layout for positioning */
+  flex-direction: column; /* Stacks individual messages vertically */
+  gap: var(--space-md); /* Adds space between each message */
+  flex: 1; /* Takes up all available space */
+  padding-top: calc(var(--space-xl) + 20px); /* Adds extra space at the top so first message isn't cut off */
+  scroll-padding-top: var(--space-xl); /* When auto-scrolling, keeps this much space at the top */
+}
+
+/* 
+ * The footer contains the input area where users type messages.
+ * It's like the control panel at the bottom of the screen.
+ */
+footer {
+  display: flex; /* Uses flexible layout for positioning */
+  flex-direction: column; /* Stacks elements vertically */
+  align-items: center; /* Centers items horizontally */
+  padding: var(--space-xs) var(--space-md) env(safe-area-inset-bottom); /* Adds space around the content, with extra at bottom for phones with notches */
+  background: var(--color-background); /* Uses the dark background color */
+}

@@ -1,0 +1,339 @@
+/*!
+ * VOICE & AUDIO STYLES
+ * Styles for voice input, audio playback, and speech recognition feedback.
+ */
+
+ @import url('./variables.css'); /* Import variables */
+
+ /* Voice button styles */
+ .vocal-button, .stop-voice-button {
+   position: absolute;
+   bottom: 20px;
+   left: 38px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 35px;
+   height: 35px;
+   padding: 0;
+   background: none;
+   border: none;
+   opacity: 0.7;
+   cursor: pointer;
+   transition: all 0.2s;
+   -webkit-transition: all 0.2s;
+   will-change: opacity;
+   touch-action: manipulation;
+   -webkit-tap-highlight-color: transparent;
+   z-index: 20;
+   /* Prevent context menu on long press */
+   -webkit-touch-callout: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+ }
+ 
+ /* Add z-index to ensure proper stacking order */
+ .stop-voice-button {
+   z-index: 30;
+ }
+ 
+ .vocal-button {
+   z-index: 20;
+ }
+ 
+ /* Rule to prevent overlap by hiding vocal button when controls are present */
+ .message.bot:has(.stop-voice-button) .vocal-button,
+ .message.bot:has(.play-button) .vocal-button,
+ .message.bot:has(.replay-button) .vocal-button {
+   display: none !important;
+   visibility: hidden !important;
+ }
+ 
+ /* Extra specificity for replay button to ensure vocal button is hidden */
+ .message.bot:has(.replay-button) .vocal-button {
+   display: none !important;
+   visibility: hidden !important;
+   opacity: 0 !important;
+   pointer-events: none !important;
+   z-index: -1 !important;
+ }
+ 
+ /* Only show vocal button when no audio is playing */
+ .message.bot:not(:has(.stop-voice-button)):not(:has(.play-button)):not(:has(.replay-button)) .vocal-button {
+   opacity: 0.7;
+   visibility: visible;
+   display: inline-block;
+ }
+ 
+ .vocal-button.loading {
+   opacity: 1;
+ }
+ 
+ .vocal-button.loading img {
+   animation: spin 1s linear infinite;
+   will-change: transform;
+   width: 30px;
+   height: 30px;
+ }
+ 
+ .vocal-icon, .mic-off-icon {
+   width: 35px;
+   height: 35px;
+   /* Prevent context menu for images */
+   -webkit-touch-callout: none;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+   pointer-events: none;
+   /* Prevent dragging */
+   -webkit-user-drag: none;
+   -khtml-user-drag: none;
+   -moz-user-drag: none;
+   -o-user-drag: none;
+   /* Make sure pointer events pass through to the button */
+   pointer-events: none;
+ }
+ 
+ .stop-voice-button:hover, .vocal-button:hover {
+   opacity: 1;
+   background: none;
+ }
+ 
+ .stop-voice-button:active {
+   transform: scale(0.92);
+ }
+ 
+ /* Audio playback controls */
+ .play-button, .pause-button, .replay-button, .speed-button {
+   position: absolute;
+   bottom: 20px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 35px;
+   height: 35px;
+   padding: 0;
+   background: none;
+   border: none;
+   opacity: 0.7;
+   cursor: pointer;
+   transition: all 0.2s;
+   will-change: opacity;
+   z-index: 10;
+ }
+ 
+ .play-button, .pause-button, .replay-button {
+   left: 38px;
+ }
+ 
+ .speed-button {
+   left: 72px;
+   font-family: var(--font-family);
+   font-size: 14px;
+   font-weight: bold;
+ }
+ 
+ .play-button:hover, .pause-button:hover, .replay-button:hover, .speed-button:hover {
+   opacity: 1;
+   background: none !important;
+ }
+ 
+ .replay-button:active {
+   transform: scale(0.92);
+ }
+ 
+ .time-display {
+   margin-left: 10px;
+   margin-right: 10px;
+   font-size: 14px;
+ }
+ 
+ /* Toggle play and pause button visibility */
+ .play-button {
+   display: flex; /* Changed from display: none */
+ }
+ 
+ .pause-button.active ~ .play-button {
+   display: none;
+ }
+ 
+ .pause-button:not(.active) ~ .play-button {
+   display: flex;
+ }
+ 
+ .pause-button.active {
+   display: flex;
+ }
+ 
+ /* Speech recognition feedback */
+ .interim-results, .listening-indicator {
+   position: absolute;
+   left: 50%;
+   z-index: 5;
+   padding: var(--space-xs) var(--space-md);
+   background: rgba(0, 0, 0, 0.7);
+   border-radius: 15px;
+   color: var(--color-text-primary);
+   font-family: var(--font-family);
+   font-size: 0.9em;
+   white-space: nowrap;
+   transform: translateX(-50%);
+   z-index: 1000;
+ }
+ 
+ .interim-results {
+   top: -30px;
+   max-width: 80vw;
+   overflow: hidden;
+   text-overflow: ellipsis;
+ }
+ 
+ .listening-indicator {
+   top: -35px;
+   color: var(--color-alert);
+   transition: background-color 0.3s ease;
+ }
+
+ /* Make buttons easier to tap on mobile */
+ @media (max-width: 768px) {
+   .vocal-button, .stop-voice-button, .play-button, .replay-button, .speed-button {
+     width: 44px;
+     height: 44px;
+     touch-action: manipulation; /* Change from none to manipulation for better scrolling */
+     -webkit-tap-highlight-color: rgba(0,0,0,0); /* Remove tap highlight */
+     cursor: pointer;
+     z-index: 50; /* Increase z-index to ensure it's above other elements */
+     /* Add active state styling for touch feedback */
+     transition: transform 0.1s ease;
+   }
+   
+   /* Add touch feedback */
+   .vocal-button:active, .stop-voice-button:active, .play-button:active, .replay-button:active, .speed-button:active {
+     transform: scale(0.95);
+   }
+   
+   .vocal-icon, .mic-off-icon {
+     width: 40px;
+     height: 40px;
+     pointer-events: none; /* Ensure pointer events pass through to button */
+   }
+   
+   /* Add larger touch area for all audio control buttons */
+   .vocal-button::before, .stop-voice-button::before, .play-button::before, .replay-button::before, .speed-button::before {
+     content: '';
+     position: absolute;
+     top: -15px;
+     left: -15px;
+     right: -15px;
+     bottom: -15px;
+     z-index: -1;
+   }
+   
+   /* Reduced hitbox specifically for the speed button */
+   .speed-button::before {
+     top: -8px;
+     left: -8px;
+     right: -8px;
+     bottom: -8px;
+   }
+   
+   /* Prevent text selection on touch */
+   .message * {
+     -webkit-touch-callout: none;
+     -webkit-user-select: none;
+     user-select: none;
+   }
+   
+   /* Ensure visibility on mobile */
+   .message.bot:not(:has(.stop-voice-button)):not(:has(.play-button)):not(:has(.replay-button)) .vocal-button {
+     opacity: 0.9;
+     visibility: visible !important;
+     display: inline-block !important;
+     pointer-events: auto !important;
+   }
+   
+   /* Reset to original position for mobile */
+   .vocal-button, .stop-voice-button, .play-button, .pause-button, .replay-button, .speed-button {
+     bottom: 40px;
+   }
+ }
+
+ /* Recording UI styles */
+ .recording-ui {
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: #444;
+   border-radius: 30px;
+   display: none;
+   align-items: center;
+   padding: 8px;
+   gap: 8px;
+   z-index: 100;
+ }
+
+ .recording-ui.active {
+   display: flex;
+ }
+
+ .waveform-container {
+   flex: 1;
+   height: 40px;
+   overflow: hidden;
+   position: relative;
+ }
+
+ .waveform-canvas {
+   width: 100%;
+   height: 100%;
+   display: block;
+ }
+
+ .right-controls {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+ }
+
+ .duration-display {
+   color: white;
+   font-family: var(--font-family);
+   font-size: 14px;
+   min-width: 36px;
+   text-align: center;
+ }
+
+ .round-button {
+   width: 36px;
+   height: 36px;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background: none;
+   border: none;
+   cursor: pointer;
+   padding: 0;
+ }
+
+ .round-button img {
+   width: 24px;
+   height: 24px;
+ }
+
+ .cancel-button {
+   background-color: rgba(255, 77, 77, 0.8);
+ }
+
+ .confirm-button {
+   background-color: rgba(77, 255, 77, 0.8);
+ }
+
+ .round-button:active {
+   transform: scale(0.95);
+ }

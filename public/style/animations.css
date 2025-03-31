@@ -1,0 +1,25 @@
+/*!
+ * ANIMATIONS & UTILS
+ * Contains animations and utility classes.
+ */
+
+ @import url('./variables.css'); /* Import variables */
+
+ /* Loading spinner animation */
+ @keyframes spin {
+   0% { transform: rotate(0deg); }
+   100% { transform: rotate(360deg); }
+ }
+ 
+ .loading-icon {
+   width: 30px;
+   height: 30px;
+   animation: spin 1s linear infinite;
+   will-change: transform;
+ }
+ 
+ /* Cursor animation to prevent iOS flicker */
+ @keyframes stabilize-cursor {
+   from { opacity: 0.99; }
+   to { opacity: 1; }
+ }

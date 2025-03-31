@@ -1,0 +1,162 @@
+/*!
+ * HELP MODAL STYLES
+ * Specific styles for the help modal dialog.
+ */
+
+ @import url('./variables.css'); /* Import variables */
+ @import url('./modals.css');  /* Import base modal styles */
+ 
+ #helpText {
+   text-align: justify;
+   hyphens: none;
+   word-wrap: break-word;
+   overflow-wrap: break-word;
+   word-break: normal;
+ }
+ 
+ /* Help modal styles */
+ .what-is-section {
+   display: flex;
+   flex-direction: row;
+   gap: 10px;
+   margin-bottom: 0;
+   align-items: flex-start;
+ }
+ 
+ .what-is-text {
+   flex: 0 0 60%;
+   text-align: justify;
+   margin-bottom: 0;
+   word-wrap: break-word;
+   overflow-wrap: break-word;
+ }
+ 
+ .what-is-text p {
+   line-height: 1.6;
+ }
+ 
+ .what-is-image {
+   width: 220px;
+   height: auto;
+   border-radius: 10px;
+   object-fit: cover;
+   margin-left: auto;
+   margin-right: 0;
+   margin-top: -15px;
+ }
+ 
+ .help-section {
+   margin-bottom: 0;
+   margin-top: -5px;
+   text-align: justify;
+   word-wrap: break-word;
+   overflow-wrap: break-word;
+ }
+ 
+ .help-section h3 {
+   margin-top: 0;
+   margin-bottom: 20px;
+   color: #fff;
+ }
+ 
+ .help-section p {
+   margin-bottom: 15px;
+   line-height: 1.5;
+   word-wrap: break-word;
+   overflow-wrap: break-word;
+ }
+ 
+ .help-section ul {
+   padding-left: 20px;
+   margin-bottom: 5px;
+   margin-top: 5px;
+ }
+ 
+ .help-section li {
+   margin-bottom: 10px;
+   line-height: 1.5;
+   word-wrap: break-word;
+   overflow-wrap: break-word;
+ }
+ 
+ .help-section li strong {
+   display: block;
+   margin-bottom: 1px;
+ }
+ /* Help modal specific styles */
+ #helpModal .modal-header {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   padding-top: var(--space-md);
+   position: relative;
+ }
+ 
+ #helpModal .modal-drag-handle {
+   display: none;
+ }
+ 
+ #helpModal .modal-header::before {
+   content: "";
+   display: none;
+   width: 60px;
+   height: 5px;
+   margin: 0 auto var(--space-md);
+   background: var(--color-border);
+   border-radius: 3px;
+ }
+ 
+ #helpModal .modal-header h2 {
+   margin: var(--space-md) 0;
+ }
+ 
+ #helpModal .close {
+   position: absolute;
+   top: var(--space-lg);
+   right: var(--space-xl);
+   padding: var(--space-sm);
+   color: var(--color-text-primary);
+   font-family: var(--font-family);
+   font-size: 24px;
+ }
+ 
+ @media (max-width: 600px) {
+   #helpModal .modal-drag-handle {
+     display: block;
+     margin: 0 auto var(--space-md);
+   }
+   
+   #helpModal .modal-header::before {
+     display: none;
+   }
+     .what-is-section {
+         flex-direction: row;
+         align-items: flex-start;
+         gap: 10px;
+     }
+ 
+     .what-is-text {
+         flex: 1;
+     }
+ 
+     .what-is-image {
+         width: 150px;
+         margin: 0;
+         margin-top: 100px; /* Added 40px margin to center with the "What is Meit AI" heading */
+     }
+ 
+     .help-image {
+         width: 150px;
+         height: auto;
+         margin: 0 auto;
+         display: block;
+     }
+ 
+     .help-section {
+         margin-top: 0;
+     }
+ 
+     .modal-header {
+         margin-bottom: 0;
+     }
+ }

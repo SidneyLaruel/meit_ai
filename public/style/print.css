@@ -1,0 +1,36 @@
+/*!
+ * PRINT STYLES
+ * Styles optimized for printing the chatbot interface.
+ */
+
+ @import url('./variables.css');
+
+ @media print {
+   html, body {
+     background: var(--color-text-white);
+     color: var(--color-text-black);
+   }
+ 
+   .messages {
+     color: var(--color-text-black);
+   }
+   
+   .message span {
+     color: var(--color-text-black);
+     background: none !important;
+     border: none !important;
+   }
+   
+   footer, header, button, .input-area, #settingsButton, #helpButton {
+     display: none !important;
+   }
+   
+   .message-logo {
+     display: none;
+   }
+   
+   a {
+     color: var(--color-text-black);
+     text-decoration: underline;
+   }
+ }

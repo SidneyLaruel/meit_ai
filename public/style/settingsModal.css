@@ -1,0 +1,276 @@
+/*!
+ * SETTINGS MODAL STYLES
+ * Specific styles for the settings modal dialog.
+ */
+
+@import url('./variables.css'); /* Import variables */
+@import url('./modals.css');  /* Import base modal styles */
+
+/* Settings Modal specific styles */
+.settings-modal {
+  -webkit-tap-highlight-color: transparent; /* Prevent blue highlight on tap */
+}
+
+/* Target specific elements to prevent tap highlight */
+#settingsButton {
+  -webkit-tap-highlight-color: transparent; /* For Safari and Chrome on iOS/Android */
+  tap-highlight-color: transparent;         /* Standard syntax (should cover most browsers) */
+}
+
+#settingsModal .modal-content { /* Apply to the modal content itself */
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+}
+
+/* Apply to interactive elements within the settings modal */
+#settingsModal button,
+#settingsModal input[type="checkbox"],
+#settingsModal .toggle-switch,
+#settingsModal .close,
+#settingsModal .setting-info,
+#settingsModal .setting-label,
+#settingsModal .settings-row {
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Remove focus effects that might cause highlight */
+#settingsModal *:focus { /* Apply to all elements within settings modal on focus */
+  outline: none !important; /* Remove default outline */
+  background-color: transparent !important; /* Ensure no background color change on focus */
+  box-shadow: none !important; /* Remove any box-shadow focus effects */
+}
+
+.settings-modal-body {
+  padding: 0;
+}
+
+/* Settings container and layout */
+.settings-container {
+  display: flex;
+  height: 100%;
+  color: var(--color-text-primary);
+}
+
+.settings-sidebar {
+  width: 200px;
+  padding: 20px;
+  border-right: 1px solid var(--color-input);
+}
+
+.settings-sidebar h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.settings-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.settings-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--color-input);
+}
+
+.settings-row:last-child {
+  border-bottom: none;
+}
+
+.setting-info {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.setting-label {
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--color-text-primary);
+}
+
+.setting-explanation {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin: 15px 0 5px 0;
+  line-height: 1.4;
+  font-style: italic;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+/* Toggle switch styles */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-input);
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: var(--color-text-primary);
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+  background-color: #2196F3;
+}
+
+input:focus + .toggle-slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .toggle-slider:before {
+  transform: translateX(24px);
+}
+
+/* Mobile settings adjustments */
+@media (max-width: 600px) {
+  .settings-container {
+    flex-direction: column;
+  }
+
+  .settings-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--color-input);
+    padding: 15px 20px;
+  }
+
+  .settings-content {
+    padding: 15px 20px;
+  }
+
+  .settings-row {
+    padding: 12px 0;
+  }
+
+  #settingsModal .modal-drag-handle {
+    display: none;
+  }
+  
+  #settingsModal .modal-header::before {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 5px;
+    margin: 0 auto var(--space-md);
+    background: var(--color-border);
+    border-radius: 3px;
+  }
+  
+  #settingsModal .settings-container {
+    flex-direction: column;
+  }
+  
+  #settingsModal .settings-sidebar {
+    width: 100%;
+    height: auto;
+    padding: var(--space-lg) var(--space-xl) var(--space-lg) var(--space-lg);
+    border-right: none;
+    border-bottom: 1px solid var(--color-input);
+    text-align: left;
+  }
+  
+  #settingsModal .settings-sidebar h3 {
+    margin: 0;
+    padding: var(--space-md) 0;
+  }
+  
+  #settingsModal .settings-content {
+    width: 100%;
+    padding: 0;
+  }
+  
+  #settingsModal .settings-row {
+    min-height: 50px;
+    height: auto;
+    margin: 0;
+    padding: var(--space-lg) var(--space-xl);
+  }
+  
+  #settingsModal .settings-row > div {
+    width: 75% !important;
+    padding-right: var(--space-md) !important;
+  }
+  
+  #settingsModal .settings-row > div p {
+    margin: 18px 0 var(--space-sm) 0 !important;
+  }
+  
+  #settingsModal .modal-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: var(--space-md);
+  }
+  
+  #settingsModal .modal-header h2 {
+    margin: var(--space-md) 0;
+  }
+  
+  /* Toggle switch mobile adjustments */
+  #settingsModal .toggle-switch {
+    width: 50px;
+    height: 26px;
+    margin: var(--space-xs) var(--space-xs) 0 0;
+  }
+  
+  #settingsModal .toggle-slider:before {
+    left: 3px;
+    bottom: 3px;
+    width: 20px;
+    height: 20px;
+  }
+  
+  #settingsModal input:checked + .toggle-slider:before {
+    transform: translateX(24px);
+  }
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+  .toggle-switch,
+  .modal-content {
+    border: 1px solid ButtonText;
+  }
+  
+  .toggle-switch input:checked + .toggle-slider {
+    background-color: Highlight;
+  }
+}
